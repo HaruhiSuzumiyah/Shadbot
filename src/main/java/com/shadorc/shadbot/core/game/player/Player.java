@@ -41,4 +41,16 @@ public class Player {
                 .and(DatabaseManager.getLottery().addToJackpot(coins));
     }
 
+    public Mono<Void> winMutes(long mutes) {
+        return this.getDBMember()
+                .flatMap(dbMember -> dbMember.addCoins(mutes))
+                .then();
+    }
+
+    public Mono<Void> loseMutes(long mutes) {
+        return this.getDBMember()
+                .flatMap(dbMember -> dbMember.addCoins(-mutes))
+                .then();
+    }
+
 }

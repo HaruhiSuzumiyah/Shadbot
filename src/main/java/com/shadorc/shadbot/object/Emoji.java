@@ -7,6 +7,7 @@ public enum Emoji {
     ACCESS_DENIED("no_entry_sign"),
     RED_CROSS("x"),
     LOCK("lock"),
+    WEIRD_CHAMP("<:uksfinest:728069091541254154>"),
 
     GREY_EXCLAMATION("grey_exclamation"),
     RED_EXCLAMATION("exclamation"),
@@ -69,5 +70,9 @@ public enum Emoji {
     @Override
     public String toString() {
         return String.format(":%s:", this.discordNotation);
+    }
+
+    public String customString() {
+        return this.discordNotation;
     }
 }

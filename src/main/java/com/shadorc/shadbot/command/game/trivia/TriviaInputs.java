@@ -73,11 +73,7 @@ public class TriviaInputs extends Inputs {
                         return this.game.win(member).then();
                     } else {
                         this.game.hasAnswered(member.getId());
-                        return event.getMessage().getChannel()
-                                .flatMap(channel -> DiscordUtils.sendMessage(
-                                        String.format(Emoji.THUMBSDOWN + " (**%s**) Wrong answer.",
-                                                member.getUsername()), channel))
-                                .then();
+                        return this.game.lose(member).then();
                     }
                 });
     }

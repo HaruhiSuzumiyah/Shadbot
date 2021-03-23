@@ -90,7 +90,7 @@ public abstract class BaseCmd {
     }
 
     public void setGameRateLimiter() {
-        this.setRateLimiter(new RateLimiter(1, Duration.ofSeconds(3)));
+        this.setRateLimiter(new RateLimiter(1, Duration.ofSeconds(1)));
     }
 
     public void setEnabled(boolean isEnabled) {

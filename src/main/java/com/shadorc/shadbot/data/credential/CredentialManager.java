@@ -24,6 +24,7 @@ public class CredentialManager {
 
     private CredentialManager() {
         final File file = new File("credentials.properties");
+        System.out.println(file.getPath());
         if (!file.exists()) {
             throw new RuntimeException(String.format("%s file is missing.", file.getName()));
         }

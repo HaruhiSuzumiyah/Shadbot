@@ -2,10 +2,10 @@ package com.shadorc.shadbot.command.game.slotmachine;
 
 public enum SlotOptions {
 
-    APPLE(100),
-    CHERRIES(300),
-    BELL(2500),
-    GIFT(30000);
+    APPLE(200),
+    CHERRIES(600),
+    BELL(500),
+    GIFT(60000);
 
     private final int gains;
 

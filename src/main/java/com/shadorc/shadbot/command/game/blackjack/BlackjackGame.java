@@ -69,8 +69,9 @@ public class BlackjackGame extends MultiplayerGame<BlackjackCmd, BlackjackPlayer
                 .flatMap(TupleUtils.function((player, username) -> {
                     final int dealerValue = this.dealerHand.getValue();
                     final int playerValue = player.getHand().getValue();
+                    final int playerHandSize = player.getHand().getCards().size();
 
-                    switch (BlackjackGame.getResult(playerValue, dealerValue)) {
+                    switch (BlackjackGame.getResult(playerValue, dealerValue, playerHandSize)) {
                         case 1:
                             final long coins = Math.min((long) (player.getBet() * Constants.WIN_MULTIPLICATOR), Config.MAX_COINS);
                             Telemetry.BLACKJACK_SUMMARY.labels("win").observe(coins);
@@ -83,6 +84,12 @@ public class BlackjackGame extends MultiplayerGame<BlackjackCmd, BlackjackPlayer
                                     .then(player.lose(player.getBet()))
                                     .thenReturn(String.format("**%s** (Losses: **%s**)",
                                             username, FormatUtils.coins(player.getBet())));
+                        case 2:
+                            final long blackjackCoins = Math.min((long) (player.getBet() * Constants.BLACKJACK_WIN_MULTIPLICATOR), Config.MAX_COINS);
+                            Telemetry.BLACKJACK_SUMMARY.labels("win").observe(blackjackCoins);
+                            return player.cancelBet()
+                                    .then(player.win(blackjackCoins))
+                                    .thenReturn(String.format("**%s** (BLACKJACK! Gains: **%s**)", username, FormatUtils.coins(blackjackCoins)));
                         default:
                             return player.cancelBet()
                                     .thenReturn(String.format("**%s** (Draw)", username));
@@ -97,9 +104,11 @@ public class BlackjackGame extends MultiplayerGame<BlackjackCmd, BlackjackPlayer
     }
 
     // -1 = Lose | 0 = Draw | 1 = Win
-    private static int getResult(int playerValue, int dealerValue) {
+    private static int getResult(int playerValue, int dealerValue, int playerHandSize) {
         if (playerValue > 21) {
             return -1;
+        } else if (playerValue == 21 && playerHandSize == 2 && dealerValue != 21) {
+            return 2;
         } else if (dealerValue <= 21) {
             return Integer.compare(playerValue, dealerValue);
         } else {

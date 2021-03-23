@@ -18,6 +18,8 @@ public enum Achievement {
     BINGO(5, Emoji.TICKET, "Bingo", "Win the lottery"),
     IMPROVER(6, Emoji.ROCKET, "Improver", "Make a suggestion"),
     MILLIONAIRE(7, Emoji.BANK, "Millionaire", "Win 1 million coins");
+    //QUIET(8, Emoji.BANK, "Quiet", "Win 1 million coins");
+    //SILENCER(9, Emoji.BANK, "Silencer", "Win 1 million coins");
 
     private final int value;
     private final int flag;

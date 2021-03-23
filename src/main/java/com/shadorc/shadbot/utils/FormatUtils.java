@@ -27,6 +27,22 @@ public class FormatUtils {
     }
 
     /**
+     * @param mutes The number of mutes to format.
+     * @return {@code X mute(s)} where {@code X} is the number of mutes formatted using English locale.
+     */
+    public static String mutes(long mutes) {
+        return String.format("%s mute%s", FormatUtils.number(mutes), Math.abs(mutes) > 1 ? "s" : "");
+    }
+
+    /**
+     * @param weirdchamps The number of weirdchamps to format.
+     * @return {@code X weirdchamp(s)} where {@code X} is the number of weirdchamps formatted using English locale.
+     */
+    public static String weirdchamps(long weirdchamps) {
+        return String.format("%s WeirdChamp%s", FormatUtils.number(weirdchamps), Math.abs(weirdchamps) > 1 || Math.abs(weirdchamps) == 0 ? "s" : "");
+    }
+
+    /**
      * @param enumeration The enumeration to format, may be {@code null}.
      * @return The enumeration converted as a capitalized string with underscores replaced with spaces.
      */

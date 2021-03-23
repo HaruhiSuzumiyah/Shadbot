@@ -67,6 +67,7 @@ public class BlackjackCmd extends GameCmd<BlackjackGame> {
                         + "committing to stand after receiving exactly one more card", false)
                 .addField("Rules", "This game follows the same rules as real Blackjack.", false)
                 .addField("Gains", String.format("Gains are multiplied by **%.1f** if you win.", Constants.WIN_MULTIPLICATOR), false)
+                .addField("Blackjack", String.format("Blackjack pays **%.1f** to 1", Constants.BLACKJACK_WIN_MULTIPLICATOR), false)
                 .build();
     }
 }

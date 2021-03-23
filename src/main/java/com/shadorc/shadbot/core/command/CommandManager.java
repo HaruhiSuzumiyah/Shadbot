@@ -4,16 +4,8 @@ import com.shadorc.shadbot.command.admin.IamCmd;
 import com.shadorc.shadbot.command.admin.ManageCoinsCmd;
 import com.shadorc.shadbot.command.admin.PruneCmd;
 import com.shadorc.shadbot.command.admin.SettingsCmd;
-import com.shadorc.shadbot.command.admin.member.BanCmd;
-import com.shadorc.shadbot.command.admin.member.KickCmd;
-import com.shadorc.shadbot.command.admin.member.SoftBanCmd;
-import com.shadorc.shadbot.command.currency.CoinsCmd;
-import com.shadorc.shadbot.command.currency.LeaderboardCmd;
-import com.shadorc.shadbot.command.currency.TransferCoinsCmd;
-import com.shadorc.shadbot.command.fun.ChatCmd;
-import com.shadorc.shadbot.command.fun.DtcCmd;
-import com.shadorc.shadbot.command.fun.JokeCmd;
-import com.shadorc.shadbot.command.fun.ThisDayCmd;
+import com.shadorc.shadbot.command.admin.member.*;
+import com.shadorc.shadbot.command.currency.*;
 import com.shadorc.shadbot.command.game.blackjack.BlackjackCmd;
 import com.shadorc.shadbot.command.game.dice.DiceCmd;
 import com.shadorc.shadbot.command.game.hangman.HangmanCmd;
@@ -23,17 +15,8 @@ import com.shadorc.shadbot.command.game.rps.RpsCmd;
 import com.shadorc.shadbot.command.game.russianroulette.RussianRouletteCmd;
 import com.shadorc.shadbot.command.game.slotmachine.SlotMachineCmd;
 import com.shadorc.shadbot.command.game.trivia.TriviaCmd;
-import com.shadorc.shadbot.command.gamestats.CounterStrikeCmd;
-import com.shadorc.shadbot.command.gamestats.DiabloCmd;
-import com.shadorc.shadbot.command.gamestats.FortniteCmd;
-import com.shadorc.shadbot.command.gamestats.OverwatchCmd;
 import com.shadorc.shadbot.command.hidden.*;
-import com.shadorc.shadbot.command.image.*;
 import com.shadorc.shadbot.command.info.*;
-import com.shadorc.shadbot.command.music.*;
-import com.shadorc.shadbot.command.owner.*;
-import com.shadorc.shadbot.command.utils.*;
-import com.shadorc.shadbot.command.utils.poll.PollCmd;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -53,36 +36,39 @@ public class CommandManager {
 
     private CommandManager() {
         this.commandsMap = CommandManager.initialize(
+
                 // Utility Commands
-                new WeatherCmd(), new MathCmd(), new TranslateCmd(), new WikipediaCmd(), new PollCmd(),
-                new UrbanCmd(), new LyricsCmd(),
+                //new WeatherCmd(), new MathCmd(), new TranslateCmd(), new WikipediaCmd(), new PollCmd(),
+                //new UrbanCmd(), new LyricsCmd(),
                 // Fun Commands
-                new ChatCmd(), new ThisDayCmd(), new JokeCmd(), new DtcCmd(),
+                //new ChatCmd(), new ThisDayCmd(), new JokeCmd(), new DtcCmd(),
                 // Image Commands
-                new GifCmd(), new ImageCmd(), new WallpaperCmd(), new SuicideGirlsCmd(),
-                new Rule34Cmd(), new XkcdCmd(),
+                //new GifCmd(), new ImageCmd(), new WallpaperCmd(), new SuicideGirlsCmd(),
+                //new Rule34Cmd(), new XkcdCmd(),
                 // Game Commands
                 new RpsCmd(), new HangmanCmd(), new TriviaCmd(), new RussianRouletteCmd(),
                 new SlotMachineCmd(), new RouletteCmd(), new BlackjackCmd(), new DiceCmd(),
                 new LotteryCmd(),
                 // Currency Commands
-                new CoinsCmd(), new LeaderboardCmd(), new TransferCoinsCmd(),
+                new CoinsCmd(), new LeaderboardCmd(), new TransferCoinsCmd(), new ShopCmd(), new NumMutesCmd(),
+                new BuyMutesCmd(), new GiveWeirdchampCmd(), new WeirdchampLeaderboardCmd(), new WeirdChampsCmd(),
+                new FreeCoinsCmd(),
                 // Music Commands
-                new PlayCmd(), new PauseCmd(), new StopCmd(), new SkipCmd(), new RepeatCmd(),
-                new BackwardCmd(), new ForwardCmd(), new VolumeCmd(), new NameCmd(),
-                new PlaylistCmd(), new ShuffleCmd(), new ClearCmd(), new BassBoostCmd(),
+                //new PlayCmd(), new PauseCmd(), new StopCmd(), new SkipCmd(), new RepeatCmd(),
+                //new BackwardCmd(), new ForwardCmd(), new VolumeCmd(), new NameCmd(),
+                //new PlaylistCmd(), new ShuffleCmd(), new ClearCmd(), new BassBoostCmd(),
                 // Game Stats Commands
-                new FortniteCmd(), new DiabloCmd(), new CounterStrikeCmd(), new OverwatchCmd(),
+                //new FortniteCmd(), new DiabloCmd(), new CounterStrikeCmd(), new OverwatchCmd(),
                 // Info Commands
                 new PingCmd(), new InfoCmd(), new UserInfoCmd(), new ServerInfoCmd(),
                 new RolelistCmd(), new FeedbackCmd(), new InviteCmd(), new AchievementsCmd(),
                 new VoteCmd(),
                 // Admin Commands
-                new ManageCoinsCmd(), new PruneCmd(), new KickCmd(), new SoftBanCmd(), new BanCmd(),
-                new IamCmd(), new SettingsCmd(),
+                new ManageCoinsCmd(), new PruneCmd(), //new KickCmd(), new SoftBanCmd(), new BanCmd(),
+                new IamCmd(), new SettingsCmd(), new MuteCmd(), new UnMuteCmd(),
                 // Owner Commands
-                new LoggerCmd(), new LeaveGuildCmd(), new GenerateRelicCmd(), new SendMessageCmd(), new ShutdownCmd(),
-                new EnableCommandCmd(), new ManageAchievementsCmd(),
+                //new LoggerCmd(), new LeaveGuildCmd(), new GenerateRelicCmd(), new SendMessageCmd(), new ShutdownCmd(),
+                //new EnableCommandCmd(), new ManageAchievementsCmd(),
                 // Hidden Commands
                 new ActivateRelicCmd(), new HelpCmd(), new BaguetteCmd(), new RelicStatusCmd(), new PrefixCmd());
     }

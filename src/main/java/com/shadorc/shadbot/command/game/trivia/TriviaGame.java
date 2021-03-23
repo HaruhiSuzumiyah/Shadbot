@@ -116,6 +116,15 @@ public class TriviaGame extends MultiplayerGame<TriviaCmd, TriviaPlayer> {
                         "**%s**.", member.getUsername(), FormatUtils.coins(gains)), channel));
     }
 
+    protected Mono<Message> lose(Member member) {
+
+        return new Player(this.getContext().getGuildId(), member.getId())
+                .lose(100)
+                .then(this.getContext().getChannel())
+                .flatMap(channel -> DiscordUtils.sendMessage(String.format(Emoji.THUMBSDOWN + " (**%s**) Wrong answer. You lost " +
+                        "**%s**.", member.getUsername(), FormatUtils.coins(100)), channel));
+    }
+
     public void hasAnswered(Snowflake userId) {
         final TriviaPlayer player = new TriviaPlayer(this.getContext().getGuildId(), userId);
         if (!this.addPlayerIfAbsent(player)) {

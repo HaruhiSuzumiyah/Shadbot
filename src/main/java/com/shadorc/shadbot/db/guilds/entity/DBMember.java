@@ -48,6 +48,18 @@ public class DBMember extends SerializableEntity<DBMemberBean> implements Databa
         return this.getBean().getCoins();
     }
 
+    public long getMutes() {
+        return this.getBean().getMutes();
+    }
+
+    public long getWeirdChamps() {
+        return this.getBean().getWeirdchamps();
+    }
+
+    public boolean getFreecoins() {
+        return this.getBean().getFreecoins();
+    }
+
     public Mono<UpdateResult> addCoins(long gains) {
         final long coins = NumberUtils.truncateBetween(this.getCoins() + gains, 0, Config.MAX_COINS);
 
@@ -67,6 +79,66 @@ public class DBMember extends SerializableEntity<DBMemberBean> implements Databa
                                 .flatMap(dbUser -> dbUser.unlockAchievement(Achievement.CROESUS));
                     }
                     if (coins >= 1_000_000) {
+                        return DatabaseManager.getUsers()
+                                .getDBUser(this.getId())
+                                .flatMap(dbUser -> dbUser.unlockAchievement(Achievement.MILLIONAIRE));
+                    }
+                    return Mono.empty();
+                }));
+    }
+
+    public Mono<UpdateResult> addMutes(long gains) {
+        final long mutes = NumberUtils.truncateBetween(this.getMutes() + gains, 0, Config.MAX_COINS);
+
+        // If the new coins amount is equal to the current one, no need to request an update
+        if (mutes == this.getMutes()) {
+            LOGGER.debug("[DBMember {} / {}] Mutes update useless, aborting: {} mutes",
+                    this.getId().asLong(), this.getGuildId().asLong(), mutes);
+            return Mono.empty();
+        }
+
+        LOGGER.debug("[DBMember {} / {}] Mutes update: {} mutes", this.getId().asLong(), this.getGuildId().asLong(), mutes);
+        return this.update(Updates.set("members.$.mutes", mutes), this.toDocument().append("mutes", mutes))
+                .then(Mono.defer(() -> {
+                    if (mutes >= 1_000_000) {
+                        return DatabaseManager.getUsers()
+                                .getDBUser(this.getId())
+                                .flatMap(dbUser -> dbUser.unlockAchievement(Achievement.CROESUS));
+                    }
+                    if (mutes >= 1_000) {
+                        return DatabaseManager.getUsers()
+                                .getDBUser(this.getId())
+                                .flatMap(dbUser -> dbUser.unlockAchievement(Achievement.MILLIONAIRE));
+                    }
+                    return Mono.empty();
+                }));
+    }
+
+    public Mono<UpdateResult> useFreecoins() {
+
+        LOGGER.debug("[DBMember {} / {}] Freecoins update: {} freecoins", this.getId().asLong(), this.getGuildId().asLong(), false);
+        return this.update(Updates.set("members.$.freecoins", false), this.toDocument().append("freecoins", false));
+    }
+
+    public Mono<UpdateResult> addWeirdChamps(long gains) {
+        final long weirdchamps = NumberUtils.truncateBetween(this.getWeirdChamps() + gains, 0, Config.MAX_COINS);
+
+        // If the new coins amount is equal to the current one, no need to request an update
+        if (weirdchamps == this.getWeirdChamps()) {
+            LOGGER.debug("[DBMember {} / {}] Mutes update useless, aborting: {} mutes",
+                    this.getId().asLong(), this.getGuildId().asLong(), weirdchamps);
+            return Mono.empty();
+        }
+
+        LOGGER.debug("[DBMember {} / {}] WeirdChamps update: {} weirdchamps", this.getId().asLong(), this.getGuildId().asLong(), weirdchamps);
+        return this.update(Updates.set("members.$.weirdchamps", weirdchamps), this.toDocument().append("weirdchamps", weirdchamps))
+                .then(Mono.defer(() -> {
+                    if (weirdchamps >= 1_000_000) {
+                        return DatabaseManager.getUsers()
+                                .getDBUser(this.getId())
+                                .flatMap(dbUser -> dbUser.unlockAchievement(Achievement.CROESUS));
+                    }
+                    if (weirdchamps >= 1_000) {
                         return DatabaseManager.getUsers()
                                 .getDBUser(this.getId())
                                 .flatMap(dbUser -> dbUser.unlockAchievement(Achievement.MILLIONAIRE));

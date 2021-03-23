@@ -2,6 +2,8 @@ package com.shadorc.shadbot.command.game.blackjack;
 
 class Constants {
 
-    protected static final float WIN_MULTIPLICATOR = 1.6f;
+    protected static final double WIN_MULTIPLICATOR = 1.1;
+
+    protected static final double BLACKJACK_WIN_MULTIPLICATOR  = 2.0;
 
 }

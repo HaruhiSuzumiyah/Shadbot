@@ -95,7 +95,7 @@ public class LotteryCollection extends DatabaseCollection {
     }
 
     public Mono<UpdateResult> addToJackpot(long coins) {
-        final long value = (long) Math.ceil(coins / 100.0f);
+        final long value = (long) Math.ceil(coins / 20.0f);
 
         LOGGER.debug("[Lottery] Jackpot update: {} coins", value);
 

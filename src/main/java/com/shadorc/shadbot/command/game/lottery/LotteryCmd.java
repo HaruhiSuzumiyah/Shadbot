@@ -162,7 +162,7 @@ public class LotteryCmd extends BaseCmd {
         return CommandHelpBuilder.create(this, context)
                 .setDescription("Buy a ticket for the lottery or display the current lottery status.")
                 .addArg("num", String.format("must be between %d and %d", Constants.MIN_NUM, Constants.MAX_NUM), true)
-                .addField("Info", "One winner is randomly drawn every Sunday at noon (English time)."
+                .addField("Info", "One winner is randomly drawn every Sunday at noon (EST time)."
                         + "\nIf no one wins, the prize pool is put back into play, "
                         + "if there are multiple winners, the prize pool is splitted between them.", false)
                 .addField("Cost", String.format("A ticket costs **%s.**", FormatUtils.coins(Constants.PAID_COST)), false)
